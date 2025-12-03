@@ -3,6 +3,10 @@ import time
 from safety import check_input_safety
 from llm_client import ollama_chat
 from telemetry import log_event
+import threading
+import itertools
+import sys
+
 
 MODEL = "qwen2.5:1.5b"
 
@@ -67,25 +71,54 @@ Rules:
     return ollama_chat(MODEL, messages)
 
 def main():
-    print("Devil's Advocate Debate Generator (CLI Version)")
+    print("Devil's Advocate Debate Generator")
     print("Type 'exit' to quit.\n")
 
     while True:
         topic = input("Enter a debate topic: ")
 
-        if topic.strip().lower() == "exit":
+        #Exit
+        if topic.lower() == "exit":
             print("Goodbye!")
             break
+        
+        #Help
+        if topic.lower() == "/help":
+            print(
+                "\n=====================================\n"
+                "              HELP MENU              \n"
+                "=====================================\n"
+                "Commands:\n"
+                "  /help   - Show this help message\n"
+                "  exit    - Quit the application\n"
+                "-------------------------------------\n"
+                "Just type ANY topic to generate a debate.\n"
+                "Example: privacy vs security\n"
+                "=====================================\n"
+            )
+            continue
 
+        # Empty Topic Warning
+        if topic == "":
+            print("Please enter a valid topic.\n")
+            continue
+
+        
+        #Safety Check
         safe, msg = check_input_safety(topic)
         if not safe:
             print(msg)
             continue
 
+        #Loading Prompt 
+        print("Generating debate... (thinking)\n")
+
+        #Generate Demate
         start = time.time()
         response = generate_debate(topic)
         latency = time.time() - start
 
+        #Log Telemetry
         log_event("tool", latency, len(topic), MODEL)
 
         print("\n==================== DEBATE ====================\n")
