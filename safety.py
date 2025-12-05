@@ -1,5 +1,3 @@
-# safety.py
-
 BLOCKED_KEYWORDS = [
     "bomb", "kill", "harm", "weapon", "violent",
     "overthrow", "extremist", "terror", "suicide",

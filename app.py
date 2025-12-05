@@ -68,16 +68,31 @@ Rules:
         {"role": "user", "content": user_prompt}
     ]
 
-    return ollama_chat(MODEL, messages)
+    raw_output = ollama_chat(MODEL, messages)
+    numbered_output = raw_output
+
+    for i, section in enumerate(sections, start=1):
+        numbered_output = numbered_output.replace(
+            f"{section}:",     # replace "Argument For:"
+            f"{i}. {section}:"  # with "1. Argument For:"
+        )
+
+        numbered_output = numbered_output.replace(
+            f"**{section}**",     # replace bold version
+            f"**{i}. {section}**"
+        )
+
+    return numbered_output
 
 def main():
     print("Devil's Advocate Debate Generator")
-    print("Type 'exit' to quit.\n")
+    print("Type '/help' for guide.\n")
 
     while True:
-        topic = input("Enter a debate topic: ")
+        topic = input("Enter a debate topic: ").strip()
 
         #Exit
+        
         if topic.lower() == "exit":
             print("Goodbye!")
             break

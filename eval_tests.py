@@ -44,7 +44,7 @@ def main():
     total = len(tests)
     passed = 0
 
-    print("Running Offline Evaluation...\n")
+    print(">Running Offline Evaluation...\n")
 
     for test in tests:
         result = run_test(test)
