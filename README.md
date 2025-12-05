@@ -40,4 +40,5 @@ Install **Ollama** at https://ollama.com/
 Then pull the model:
 
 ```bash
-ollama pull llama3.1:8b
+MODEL = "qwen2.5:1.5b"
+
