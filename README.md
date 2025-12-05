@@ -117,8 +117,8 @@ python app.py
 python eval_tests.py
 ```
 
-### My system achieved: PASS RATE: 17/18 (94.4%)
-  -All safety tests passed except the short_topic case, which is expected because the system correctly warns about empty or too-short inputs.
+### My system achieved: PASS RATE: 18/18 (100.0%)
+  -All safety tests passed successfully including all safey, tone, and robustness checks
 
 ## Telemetry Logging 
 Each debate generation logs:
