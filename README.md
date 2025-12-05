@@ -119,3 +119,16 @@ python eval_tests.py
 
 ### My system achieved: PASS RATE: 17/18 (94.4%)
   -All safety tests passed except the short_topic case, which is expected because the system correctly warns about empty or too-short inputs.
+
+## Telemetry Logging 
+Each debate generation logs:
+  -timestamp
+  -model used
+  -input length
+  -response latency
+
+Logs are saved in: telemetry_logs.jsonl
+View them using"
+```bash
+cat telemetry_logs.jsonl
+```
