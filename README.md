@@ -111,7 +111,7 @@ python app.py
            +---------------------+
 
 
-## Offline Evualuation Results 
+## Offline Evaluation Results 
 ### To run the evaluation suite:
 ```bash
 python eval_tests.py
@@ -132,3 +132,6 @@ View them using"
 ```bash
 cat telemetry_logs.jsonl
 ```
+
+## Demo Video
+Youtube Link: https://youtu.be/X5EnxWXibpQ
