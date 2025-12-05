@@ -13,6 +13,9 @@ PROMPT_INJECTION_TRIGGERS = [
     "jailbreak"
 ]
 
+CONFLICT_TERMS = ["war", "conflict", "military", "invasion"]
+
+
 def check_input_safety(user_input: str) -> tuple[bool, str]:
     """
     Returns (is_safe: bool, message: str)
@@ -21,13 +24,21 @@ def check_input_safety(user_input: str) -> tuple[bool, str]:
 
     for word in BLOCKED_KEYWORDS:
         if word in lowered:
-            return False, f"❌ Unsafe topic detected: '{word}'. I cannot generate a debate on this."
+            return False, f"Unsafe topic detected: '{word}'. I cannot generate a debate on this."
 
     for inj in PROMPT_INJECTION_TRIGGERS:
         if inj in lowered:
-            return False, "❌ Prompt injection attempt detected. Not allowed."
+            return False, "Prompt injection attempt detected. Not allowed."
 
+    for term in CONFLICT_TERMS:
+        if term in lowered:
+            return False, (
+                "Safety Warning:\n"
+                "This topic involves war, military conflict, or geopolitical disputes.\n"
+                "For safety reasons, I cannot generate a debate on this topic.\n"
+                "Please enter a neutral or academic topic."
+            )
     if len(user_input.strip()) == 0:
-        return False, "❌ Input cannot be empty."
-
+        return False, "Input cannot be empty."
+    
     return True, ""
